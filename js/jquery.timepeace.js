@@ -1,18 +1,24 @@
-$(document).ready(function(){
+$.fn.timepeace = function(){
     var totalDegrees = 360,
         hoursOnClock = 12,
         minutesOnClock = 60,
         secondsOnClock = 60,
-        $hourContainer = $('.hour-container'),
-        $minContainer = $('.minute-container'),
-        $secContainer = $('.second-container'),
+        $thisClock = this,
+        $hourContainer = $('<div class="hour-container"><span class="hour-hand"></span></div>'),
+        $minContainer = $('<div class="minute-container"><span class="minute-hand"></span></div>'),
+        $secContainer = $('<div class="second-container"><span class="second-hand"></span></div>'),
         savedTime = new Date();
 
+    renderClock();
     setClockHands(savedTime);
     setInterval(function(){
         savedTime = new Date();
         setClockHands(savedTime);
     },1000);
+
+    function renderClock(){
+        $thisClock.append($hourContainer,$minContainer,$secContainer);
+    }
 
     function setClockHands(time){
         var hours = time.getHours(),
@@ -71,4 +77,4 @@ $(document).ready(function(){
             'transform': cssRotate
         });
     }
-});
+};
